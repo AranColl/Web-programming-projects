@@ -1,0 +1,12 @@
+textarea {
+    min-height: 400px;
+}
+
+.email_box {
+  width: 320px;
+  padding: 20px;
+  border: 1px solid indigo;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
