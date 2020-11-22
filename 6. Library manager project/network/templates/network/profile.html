@@ -1,0 +1,63 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+
+{% block static %}
+<script src="../static/network/delete_loan.js"></script>
+<link href="{% static 'network/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+
+        {% if profile == 'author' %}
+            <h1> {{ authors_profile }} </h1>
+
+            <ul>
+                {% for book in books_written %}
+                    <a href="{% url 'book_profile' book_title=book.title %}">
+                            <li> {{ book.title }}</li></a>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+
+            {% if user.is_authenticated %}
+                <div class="logout">
+                    <h2>  Logged in as <strong> {{ user.username }} </strong> </h2>
+                    <a href="{% url 'logout' %}"> Log out </a>
+                </div>
+
+                {% if user_loans %}
+                    <h3> You have loaned these books </h3>
+                {% else %}
+                    <h3> Your loaned books will appear right here </h3>
+                {% endif %}
+
+                <div id="user_loans">
+                {% for loan in user_loans %}
+                    <div id="loan{{loan.id}}" class="loan_book">
+                        <p > {{ loan.books }} from {{ loan.date_of_loan }} until {{ loan.date_due }}</p>
+
+                        <form class="delete_form" action="javascript:void(0);" onsubmit="delete_loan('{{loan.id}}')">
+                            {% csrf_token %}
+                            <input id="delete_button{{loan.id}}" class="btn btn-danger" type="submit" value="delete">
+                        </form>
+
+                    </div>
+                {% endfor%}
+                </div>
+
+
+            {% else %}
+                <div class="login">
+                    <h2>   You are not logged in </h2>
+                    <a href="{% url 'login' %}"> Log in </a> <br>
+                </div>
+                <h3> Log yourself in to be able to enjoy the loaning service</h3> <br>
+            {% endif %}
+
+        {% endif %}
+
+
+{% endblock %}

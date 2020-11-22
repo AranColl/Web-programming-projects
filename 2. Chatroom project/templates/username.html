@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block head %}
+        <title>Log in</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>LOG IN</h1>
+    <h4>Enter the username you'll be using</h4>
+
+    <!--Form to save user's name-->
+    <form id="hidenform" action="" method="post">
+        <input type="text" id="username" name="username" autocomplete="off">
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock %}

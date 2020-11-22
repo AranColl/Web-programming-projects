@@ -1,0 +1,158 @@
+{% extends "layout.html" %}
+
+{% block head %}
+        <title>Chatroom {{ title }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='chatroom.css') }}">
+        <script>
+            let counter = {{length}} - 20;
+            const quantity = 40;
+
+            document.addEventListener('DOMContentLoaded', () => {
+                var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+                window.onscroll = () => {
+                  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                        if(counter > 0 ) {
+                            load_all_msg();
+                        }
+                  }
+                };
+                //Send a new message using sockets when submitted
+                socket.on('connect', () => {
+                    document.querySelector('#form').onsubmit = () => {
+                            const message = document.querySelector('#writemessage').value;
+                            var room = '{{ title }}';
+                            socket.emit('submit message', {'selection': message, 'room': room});
+                            document.querySelector('#writemessage').value = '';
+                            return false;
+                        };
+                    });
+                //Create a new message div
+                socket.on('announce message', data => {
+                    add_message(data.selection[0], data.selection[1], data.selection[2], 'top');
+                });
+
+            });
+
+            function load_all_msg(){
+                  // Set start and end post numbers, and update counter.
+                  const start = counter;
+                  const end = start - quantity;
+                  counter = end;
+
+                  // Open new request to get new posts.
+                  const request = new XMLHttpRequest();
+                  request.open('POST', '/chat/{{ title }}');
+                  request.onload = () => {
+                      const data = JSON.parse(request.responseText);
+                      for (i = 0; i < data.length; i++) {
+                          add_message(data[i][0], data[i][1], data[i][2], 'bottom');
+                       }
+
+                  };
+
+                  // Add start and end points to request data.
+                  const data = new FormData();
+                  data.append('start', start);
+                  data.append('end', end);
+
+                  // Send request.
+                  request.send(data);
+            };
+
+            //Differentiate new messages from submit and from scrolling
+            function add_message(message, date, sender, option) {
+                    const div = document.createElement('div');
+                    div.className = 'message_box';
+
+                    if(option == 'top'){
+                        document.querySelector('#chat').prepend(div);
+                    } else {
+                        document.querySelector('#chat').append(div);
+                    }
+
+                    const divdate = document.createElement('div');
+                    divdate.className = 'date';
+                    divdate.innerHTML = date;
+
+                    const divsender = document.createElement('div');
+                    divsender.className = 'sender';
+                    divsender.innerHTML = sender;
+
+                    const msg = document.createElement('div');
+                    msg.className = 'msg';
+                    msg.innerHTML = message;
+
+
+
+                    if(option == 'top'){
+                        const delete_msg = document.createElement('button');
+                        delete_msg.className = 'delete_button';
+                        delete_msg.innerHTML = 'Delete Message';
+
+                        document.querySelector('.message_box').append(divdate);
+                        document.querySelector('.message_box').append(msg);
+                        document.querySelector('.message_box').append(divsender);
+                        document.querySelector('.message_box').append(delete_msg);
+
+                    } else {
+                        var elements = document.getElementsByClassName('message_box');
+                        var last_element = elements[elements.length - 1]
+                        last_element.append(divdate);
+                        last_element.append(msg);
+                        last_element.append(divsender);
+                    }
+
+            };
+
+            // If hide button is clicked, delete the post.
+            document.addEventListener('click', event => {
+                const element = event.target;
+                if (element.className === 'delete_button') {
+                    delete_msg(element.parentElement.childNodes[1].innerHTML);
+                    element.parentElement.style.animationPlayState = 'running';
+                    element.parentElement.addEventListener('animationend', () =>  {
+                        element.parentElement.remove();
+                    });
+                }
+            });
+            //Delete the message from the list too
+            function delete_msg(element){
+                  const request = new XMLHttpRequest();
+                  request.open('POST', '/delete_message');
+                  const data = new FormData();
+                  data.append('message', element);
+                  data.append('room', '{{ title }}');
+                  request.send(data);
+            };
+
+        </script>
+{% endblock %}
+
+{% block body %}
+    <h1>CHAT {{ title }}  </h1>
+    <p class="log-in"> Logged in as {{ user }} <a href = "{{ url_for('logout') }}">click here to log out</a> </p>
+    <a href="{{ url_for('index') }}" >Back to index </a>
+
+      <!--Form to write new messages-->
+      <form id="form">
+        <input type=text autocomplete="off" autofocus id="writemessage"/>
+        <input type="submit" name="Send"/>
+      </form>
+
+
+
+      <hr>
+
+        <!--Div where messages are displayed-->
+        <div id="chat">
+         {% for message in messages|reverse %}
+            <div class="message_box">
+                <div class="date"> {{ message[1] }} </div>
+                <div class="msg"> {{ message[0] }} </div>
+                <div class="sender"> {{ message[2] }} </div>
+            </div>
+         {% endfor %}
+        </div>
+
+{% endblock %}

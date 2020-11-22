@@ -1,0 +1,37 @@
+.hover-slide {
+  position: relative;
+  color: #90A4AE;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 900;
+  font-size: 300%;
+}
+.hover-slide::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  overflow: hidden;
+  width: 0px;
+  color: #263238;
+  content: attr(data-title);
+  white-space: nowrap;
+  transition: width 250ms ease-out;
+}
+.hover-slide:hover, .hover-slide:active, .hover-slide:focus {
+  outline: none;
+  text-decoration: none;
+  color: #90A4AE;
+}
+.hover-slide:hover::after, .hover-slide:active::after, .hover-slide:focus::after {
+  width: 100%;
+  transition-duration: 500ms;
+
+}
+
+@media only screen and (max-width: 768px) {
+  .hover-slide {
+    color: black;
+    font-size: 200%;
+  }
+}

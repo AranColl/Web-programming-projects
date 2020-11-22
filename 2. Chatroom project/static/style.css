@@ -1,0 +1,23 @@
+body {
+  background-color: lightblue;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+body > h1 {
+   text-align: center;
+}
+
+.log-in { text-align: right; }
+
+.but{
+  background-color:aliceblue;
+  border: 1px solid;
+  padding: 5px;
+  margin:20px;
+  border-radius: 20px;
+}
+
+.channel{
+  margin: 20px;
+}

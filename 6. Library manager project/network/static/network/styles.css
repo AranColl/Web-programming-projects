@@ -1,0 +1,98 @@
+.contenidor{
+    background-color: #adb1b5;
+    padding: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+.style-4 {
+  color: black;
+  font-size: 270%;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-family: sans-serif;
+  transition: text-shadow 0.3s linear;
+  transition: font-size 0.3s ease;
+}
+
+.style-4:hover {
+  font-size: 400%;
+    text-shadow: 0.06em 0.06em gray;
+}
+
+
+.container {
+  margin: 10%;
+}
+
+h4 {
+  font-size: 200%;
+  color: 	#909090;
+  text-shadow: 0.06em 0.06em 	#505050;
+  text-decoration: underline;
+}
+
+li {
+  color: black;
+  font-size: 120%;
+  list-style-type:none;
+  margin-top: 10px;
+}
+
+
+li::before {
+  display: inline-block;
+  content: "👉";
+  margin-right: 0.1em;
+      animation: waving-hand 0.45s linear infinite;
+    animation-direction: alternate-reverse;
+}
+
+
+/* animation start */
+li {
+    color: black;
+    font-size: 140%;
+    list-style-type:none;
+    margin-top: 10px;
+}
+
+
+@keyframes waving-hand {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(-10px);
+    }
+}
+
+
+a:hover {
+  text-decoration:underline;
+  color: gray;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .row{
+    display:block;
+  }
+  .col {
+    margin-top: 10%;
+  }
+  .style-4 {
+  color: black;
+  font-size: 175%;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-family: sans-serif;
+  transition: text-shadow 0.3s linear;
+  transition: font-size 0.3s ease;
+  }
+  .style-4:hover {
+    font-size: 250%;
+    text-shadow: 0.06em 0.06em gray;
+  }
+}

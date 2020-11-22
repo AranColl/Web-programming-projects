@@ -1,0 +1,66 @@
+{% extends "network/layout.html" %}
+
+{% block static %} <script src="../static/network/profile.js"></script> {% endblock %}
+
+{% block body %}
+
+    <h1 id="user_profile">{{ username }}</h1>
+	<div class="follow_class">
+		<div><span>Followers: </span><span id="followers">{{ user_followers }}</span></div>
+		<div><span>Following: </span><span id="following">{{ user_following }}</span></div>
+
+		{% if username != user.username %}
+		<button id="follow_button">{{bool_follow}}</button>
+		{% endif %}
+
+	</div>
+
+
+
+
+
+    <div id="feed">
+        {% for post in page %}
+        <div style="padding: 10px;">
+				<div class="container post_box">
+				    <a href="{% url 'profile' username=post.author %}"><strong>{{ post.author }}</strong></a><br>
+				    <span id="content{{post.id}}">{{ post.text }}</span>
+
+                    {% if user.username == post.author %}
+						    <form id="edit_form{{post.id}}" action="javascript:void(0);" onsubmit="edit_text('{{post.id}}')">
+								{% csrf_token %}
+								<textarea id="edit_area{{post.id}}" style="display: none;"></textarea>
+								<input id="edit_button{{post.id}}" type="submit" value="Edit">
+				    			<input id="save_button{{post.id}}" type="hidden" value="Save">
+							</form>
+
+				    {% else %}
+				    	<br>
+				    {% endif %}
+
+				    <span class="time">{{ post.timestamp }}</span><br>
+					<button id="like_button{{post.id}}" onclick="like_function('{{post.id}}')">Like</button>
+					<span id="likes{{post.id}}" > {{ post.like }} </span>
+				</div>
+			</div>
+        {% endfor %}
+    </div>
+
+	{% if page.has_other_pages %}
+        <nav aria-label="...">
+		    <ul class="pagination">
+		        {% if page.has_previous %}
+		            <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}"> {{ page.previous_page_number }} </a></li>
+		        {% endif %}
+
+		        <li class="page-item active"><a class="page-link" > {{ page.number }} </a></li>
+
+		        {% if page.has_next %}
+		            <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a></li>
+		        {% endif %}
+
+            </ul>
+        </nav>
+	{% endif %}
+
+{% endblock %}

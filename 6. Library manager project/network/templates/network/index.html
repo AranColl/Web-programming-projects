@@ -1,0 +1,97 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block static %}
+<link href="{% static 'network/styles.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block body %}
+
+
+{% if all_authors %}
+<!-- Authors Carousel -->
+<div class="contenidor">
+    <div id="carouselContent" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active text-center p-4">
+                 <span class="style-4">Recommended <br> authors </span>
+            </div>
+
+                  {% for author in all_authors %}
+                    <div class="carousel-item text-center p-4">
+                        <a href="{% url 'author_profile' first_name=author.first_name last_name=author.last_name %}">
+                            <p><span class="style-4">{{ author.first_name }} <br> {{ author.last_name }}</span></p>
+                        </a>
+                    </div>
+                {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselContent" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselContent" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!-- End of Carousel -->
+{% endif %}
+
+
+
+<div class="container">
+    <div class="row">
+
+            {% if author_results %}
+        <div class="col">
+            <h4> AUTHORS RETRIEVED</h4>
+            <ul>
+                {% for author in author_results %}
+                <a href="{% url 'author_profile' first_name=author.first_name last_name=author.last_name %}">
+                    <li> {{ author }}</li>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+            {% endif %}
+
+
+            {% if book_results %}
+        <div class="col">
+            {% if genre %}
+                <h4> {{ genre.name }} books </h4>
+            {% else %}
+                <h4> BOOKS RETRIEVED</h4>
+            {% endif %}
+            <ul>
+                {% for book in book_results %}
+                <a href="{% url 'book_profile' book_title=book.title %}">
+                    <li> {{ book }}</li>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+            {% endif %}
+
+
+            {% if genre_results %}
+        <div class="col">
+            <h4> GENRES RETRIEVED</h4>
+            <ul>
+                {% for genre in genre_results %}
+                <a href="{% url 'genre_profile' genre_name=genre.name %}">
+                    <li> {{ genre }}</li>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+            {% endif %}
+
+    </div>
+</div>
+
+
+{% endblock %}

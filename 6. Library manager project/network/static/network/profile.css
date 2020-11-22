@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css?family=Rakkas');
+
+h1 {
+    text-align: center;
+    font-family:'Rakkas';
+    font-size: 300%;
+}
+
+h2 {
+    font-size: 200%;
+    margin-left: 20%;
+}
+
+h3 {
+    font-size: 200%;
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+
+.logout h2,a {
+  display:inline;
+}
+
+.logout a {
+  margin-left: 20%;
+  font-size: 150%;
+}
+
+ul {
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+li {
+  color: black;
+  font-size: 120%;
+  list-style-type:none;
+  margin-top: 10px;
+}
+
+
+li::before {
+  display: inline-block;
+  content: "👉";
+  margin-right: 0.1em;
+      animation: waving-hand 0.45s linear infinite;
+    animation-direction: alternate-reverse;
+}
+
+
+/* animation start */
+li {
+    color: black;
+    font-size: 140%;
+    list-style-type:none;
+    margin-top: 10px;
+}
+
+
+@keyframes waving-hand {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(-10px);
+    }
+}
+
+
+a:hover {
+  text-decoration:underline;
+  color: gray;
+}
+
+/* user profile */
+#user_loans {
+  margin-top: 5%;
+}
+
+.loan_book > p, .delete_form {
+  display: inline;
+  margin-left: 10%;
+  margin-top: 5%;
+  color: black;
+  font-size: 120%;
+}
+
+.loan_book {
+  margin-bottom: 5%;
+}
+
+.login > h2{
+  display: inline;
+  margin-top: 5%;
+  color: black;
+  font-size: 120%;
+  font-size: 200%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.login a{
+  font-size: 200%;
+}
+
+@media only screen and (max-width: 768px) {
+  .loan_book{
+    margin-left: 10%
+  }
+}

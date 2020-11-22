@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Rakkas');
+
+h1 {
+    text-align: center;
+    font-family:'Constantia';
+    font-size: 300%;
+}
+
+h2 {
+    font-size: 200%;
+    margin-left: 20%;
+}
+
+h3 {
+    font-size: 200%;
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+span {
+    margin: 10%;
+    font-family:'Constantia';
+    font-size: 150%;
+}
+
+.loan_form {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 1.2rem;
+  display: block;
+  padding: 0.5rem 1rem;
+  margin: 5%;
+  margin-left: 10%;
+}
+
+div > p{
+  color: black;
+  font-size: 120%;
+  margin: 10px;
+  margin-left: 10%;
+}
+
+.login > h2{
+  display: inline;
+  margin-top: 5%;
+  color: black;
+  font-size: 120%;
+  font-size: 200%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.login a{
+  font-size: 200%;
+}
+
+@media only screen and (max-width: 768px) {
+  div > p{
+    margin-left: 20%
+  }
+  .loan_form, span{
+    margin-left: 20%;
+  }
+}

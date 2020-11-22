@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block head %}
+        <title>My Website!</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1> INDEX  </h1>
+    <p class="log-in"> Logged in as {{ user }} <a href = "{{ url_for('logout') }}">click here to log out</a> </p>
+
+    <!--Div where different chatrooms are displayed-->
+     <div id="channel_list">
+
+         {% for key in keys %}
+            <div class="channel">
+            <a href="" class="but" data-page="{{ key }}">{{ key }}</a>
+            </div>
+
+         {% endfor %}
+     </div>
+
+
+      <button type="button" id="hide">Create CHATROOM</button>
+
+      <form id="hidenform">
+        <input type="text" id="task" name="new_chat">
+        <input type="submit" id="submit">
+      </form>
+
+
+{% endblock %}

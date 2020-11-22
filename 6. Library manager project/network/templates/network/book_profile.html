@@ -1,0 +1,52 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+
+{% block static %}
+<script src="../static/network/delete_loan.js"></script>
+<link href="{% static 'network/book.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<h1>     {{ book.title }} <br> by <i>{{ book.author}}</i> </h1>
+
+{% if loans_list %}
+    <span> Loans List </span>
+{% else %}
+    <span> This book has not any loan yet </span>
+{% endif %}
+
+<div>
+    {% for loan in loans_list %}
+    <div id="loan{{loan.id}}">
+        <p> from {{ loan.date_of_loan }} to {{ loan.date_due }} by {{ loan.member }}</p>
+    </div>
+    {% endfor %}
+
+</div>
+
+    	{% if user.is_authenticated %}
+
+            <form class="loan_form" action="{% url 'new_loan' book=book.title %}" method="POST">
+              {% csrf_token %}
+              <label for="loaning">Start date:</label>
+              <input type="date" id="loaning" name="loan">
+              <input type="submit" value="Loan" value="Reserve">
+            </form>
+
+            <h3> {{ error }} </h3>
+
+	    {% else %}
+            <br>
+            <hr>
+            <div class="login">
+                <h2>   You are not logged in </h2>
+                <a href="{% url 'login' %}"> Log in </a> <br>
+            </div>
+            <h3> Log yourself in to be able to enjoy the loaning service</h3> <br>
+
+
+	    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,44 @@
+.post_box {
+  width: 80%;
+  padding: 20px;
+  padding-left: 60px;
+  border: 1px solid indigo;
+  margin-left: 60px;
+  margin-top: 10px;
+  background-color:aliceblue;
+  border-radius: 5px;
+
+}
+
+textarea{
+    margin-top: 20px;
+  	width: 80%;
+	height: 80px;
+}
+
+button {
+  width: auto;
+  background-color: transparent;
+  border: 2px solid #96a5b2;
+  border-radius: 5px;
+}
+
+input {
+	background-color: transparent;
+	border: transparent;
+	text-decoration: underline;
+	text-decoration-color: #535399;
+	color: 	#535399;
+}
+
+.time {
+	color: gray;
+}
+
+h1 {
+	text-align:center;
+}
+
+.follow_class {
+	margin-left: 80px;
+}

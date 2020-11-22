@@ -1,0 +1,57 @@
+$color: lightblue;      /*background color*/
+$tableborder: 2px solid grey; /*style of table borders*/
+
+@media only screen and (max-width: 768px) {   /*mobile-responsive @media query*/
+    .notphones{ display: none;   }  /*won't be displayed on small screen devices*/
+
+    .smallonphone{                  /*new image conditions for small screens*/
+      width: 50%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+}
+
+div{                              /*determined conditions for tags inside div*/
+      padding: 10px;
+
+  a {color:black;}
+  h1{ text-align: center; margin:20px;}
+  h2{ text-align: center; font-family: Arial}
+  h3{ font-family: Courier}
+  p { font-family: Arial; text-align: justify;}
+  table{ border-collapse: collapse; text-align: center; width: 75%; height: 50%;}
+  th, td { border: $tableborder;}
+  th{ background: #CEECF5;}
+  td {background: #E0F2F7;}
+
+}
+
+ul > li {                         /*children of unordered list properties*/
+  font-family:Courier;
+  font-size: 18px;
+  text-decoration: underline;
+
+}
+
+
+
+.centered { text-align: center; }         /*class to center structures*/
+
+.quote {  text-align: center; margin: 10px; font-size: 18px; font-family: Times}    /*class for the quotes*/
+
+.backgroundInitialPage { background: $color; }        /*set the background color to the page*/
+.footer {background: #81BEF7; padding: 20px; border-top: 1px solid #BDBDBD; font-size: 14px;} /*conditions for the page footer*/
+
+%generalbutton { border-color: white;   background: #E0F2F7; color:black; padding:5px;} /*propeties of any button*/
+%generalbutton:hover{background-color:gold; } /* hover properties for any button */
+
+.leftbutton { @extend %generalbutton; }   /*inheritance from button*/
+.middlebutton { @extend %generalbutton; } /*inheritance from button*/
+.rightbutton { @extend %generalbutton; }  /*inheritance from button*/
+
+.leftbutton::before{ @extend %generalbutton; content: "\2190  ";}  /*add a row before the button text*/
+.middlebutton::before{ @extend %generalbutton; content: "\2191  ";} /*add a row before the button text*/
+.rightbutton::before{ @extend %generalbutton; content: "\2192  ";}  /*add a row before the button text*/
+
+*::selection { color: white; background-color: $color;}   /*property when text is selected all over the website*/
